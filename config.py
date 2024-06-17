@@ -1,6 +1,9 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'postgresql://dem_owner:kIVam30sDuYH@ep-odd-salad-a2c9kbra.eu-central-1.aws.neon.tech/dem?sslmode=require')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = os.getenv('SECRET_KEY', 'supersecretkey')
+    SECRET_KEY = os.getenv('SECRET_KEY')

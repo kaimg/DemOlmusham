@@ -24,26 +24,21 @@ def extract_video_id(url):
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    form = VideoForm()
     comment_form = CommentForm()
-    if form.validate_on_submit() and current_user.is_authenticated:
-        video = Video(
-            title=form.title.data,
-            description=form.description.data,
-            url=form.url.data,
-            user_id=current_user.id
-        )
-        db.session.add(video)
-        db.session.commit()
-        flash('Your video has been uploaded.')
-        return redirect(url_for('main.index'))
     videos = Video.query.order_by(Video.timestamp.desc()).all()
     recent_comments = Comment.query.order_by(Comment.timestamp.desc()).limit(5).all()
-    return render_template('index.html', form=form, comment_form=comment_form, videos=videos, recent_comments=recent_comments, extract_video_id=extract_video_id)
+    return render_template('index.html', comment_form=comment_form, videos=videos, recent_comments=recent_comments, extract_video_id=extract_video_id)
 
-@main.route('/upload_video', methods=['POST'])
+@main.route('/forum')
+def forum():
+    comment_form = CommentForm()
+    videos = Video.query.order_by(Video.timestamp.desc()).all()
+    recent_comments = Comment.query.order_by(Comment.timestamp.desc()).limit(5).all()
+    return render_template('forum.html', comment_form=comment_form, videos=videos, recent_comments=recent_comments, extract_video_id=extract_video_id)
+
+@main.route('/upload', methods=['GET', 'POST'])
 @login_required
-def upload_video():
+def upload():
     form = VideoForm()
     if form.validate_on_submit():
         video = Video(
@@ -56,8 +51,7 @@ def upload_video():
         db.session.commit()
         flash('Your video has been uploaded.')
         return redirect(url_for('main.index'))
-    flash('Error in uploading video')
-    return redirect(url_for('main.index'))
+    return render_template('upload.html', form=form)
 
 @main.route('/comment/<int:video_id>', methods=['POST'])
 @login_required

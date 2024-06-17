@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h1>Upload a Video</h1>
+        <form action="{{ url_for('main.upload') }}" method="post" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.title.label(class="form-label") }}
+                {{ form.title(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.description.label(class="form-label") }}
+                {{ form.description(class="form-control") }}
+            </div>
+               <div class="mb-3">
+                   {{ form.url.label(class="form-label") }}
+                   {{ form.url(class="form-control") }}
+               </div>
+               <div class="mb-3">
+                   {{ form.submit(class="btn btn-primary") }}
+               </div>
+            </form>
+            </div>
+            </div>
+            {% endblock %}

@@ -5,28 +5,6 @@
     <div class="col-md-8">
         <h1>Welcome to Meykhana Video Platform</h1>
         <p>Explore the best Meykhana videos and join the community.</p>
-        {% if current_user.is_authenticated %}
-        <form action="{{ url_for('main.upload_video') }}" method="post" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <div class="mb-3">
-                {{ form.title.label(class="form-label") }}
-                {{ form.title(class="form-control") }}
-            </div>
-            <div class="mb-3">
-                {{ form.description.label(class="form-label") }}
-                {{ form.description(class="form-control") }}
-            </div>
-            <div class="mb-3">
-                {{ form.url.label(class="form-label") }}
-                {{ form.url(class="form-control") }}
-            </div>
-            <div class="mb-3">
-                {{ form.submit(class="btn btn-primary") }}
-            </div>
-        </form>
-        {% else %}
-        <p><a href="{{ url_for('auth.login') }}">Sign in</a> to upload videos and leave comments.</p>
-        {% endif %}
 
         <!-- Display videos -->
         {% for video in videos %}
