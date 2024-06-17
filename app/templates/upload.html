@@ -13,15 +13,15 @@
             <div class="mb-3">
                 {{ form.description.label(class="form-label") }}
                 {{ form.description(class="form-control") }}
-            </div>
-               <div class="mb-3">
-                   {{ form.url.label(class="form-label") }}
-                   {{ form.url(class="form-control") }}
-               </div>
-               <div class="mb-3">
-                   {{ form.submit(class="btn btn-primary") }}
-               </div>
-            </form>
-            </div>
-            </div>
-            {% endblock %}
+           </div>
+           <div class="mb-3">
+               {{ form.file.label(class="form-label") }}
+               {{ form.file(class="form-control") }}
+           </div>
+           <div class="mb-3">
+               {{ form.submit(class="btn btn-primary") }}
+           </div>
+       </form>
+   </div>
+</div>
+{% endblock %}
