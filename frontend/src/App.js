@@ -2,22 +2,32 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import VideoPage from './pages/VideoPage';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import UploadPage from './pages/UploadPage';
+import { AuthProvider, AuthContext } from './context/AuthContext';
 import './index.css';
+
+const ProtectedRoute = ({ element }) => {
+  const { auth } = React.useContext(AuthContext);
+  return auth ? element : <Navigate to="/login" />;
+};
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/video/:id" element={<VideoPage />} />
-          <Route path="/upload" element={<UploadPage />} />
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/upload" element={<ProtectedRoute element={<UploadPage />} />} />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
